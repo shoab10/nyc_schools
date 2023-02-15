@@ -26,11 +26,14 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(@ApplicationContext context: Context, okHttpClient: OkHttpClient): Retrofit {
-        // Todo: Add base url here
         return Retrofit.Builder()
-            .baseUrl("BASE URL HERE")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+    }
+
+    companion object {
+        const val BASE_URL = "https://data.cityofnewyork.us/resource/"
     }
 }
