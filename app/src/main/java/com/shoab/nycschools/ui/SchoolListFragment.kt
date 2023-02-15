@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.shoab.nycschools.R
+import com.shoab.nycschools.model.NycSchool
 import com.shoab.nycschools.ui.recyclerview.SchoolListAdapter
+import com.shoab.nycschools.ui.recyclerview.SchoolListAdapter.OnItemClickListener
 import com.shoab.nycschools.viewmodel.NycSchoolsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,6 +44,16 @@ class SchoolListFragment : Fragment() {
         ResourcesCompat.getDrawable(resources, R.drawable.divider_drawable, null)
             ?.let { drawable -> dividerItemDecoration.setDrawable(drawable) }
         recyclerView.addItemDecoration(dividerItemDecoration)
+
+        // Add item click listener
+        val onItemClickListener: OnItemClickListener = object : OnItemClickListener {
+            override fun onItemClicked(view: View, school: NycSchool, position: Int) {
+                val bundle = bundleOf("dbn" to school.dbn)
+                view.findNavController()
+                    .navigate(R.id.action_SchoolListFragment_to_SatDetailsFragment, bundle)
+            }
+        }
+        adapter.onItemClickListener = onItemClickListener
 
         return root
     }

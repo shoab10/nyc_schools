@@ -2,14 +2,22 @@ package com.shoab.nycschools.ui.recyclerview
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.shoab.nycschools.R
 import com.shoab.nycschools.model.NycSchool
 
 class SchoolListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items: ArrayList<NycSchool> = ArrayList()
+    var onItemClickListener: OnItemClickListener? = null
+
+    /**
+     * An interface used to listen for when an item is clicked.
+     */
+    interface OnItemClickListener {
+        fun onItemClicked(view: View, school: NycSchool, position: Int)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView =
@@ -33,11 +41,7 @@ class SchoolListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val viewHolder = holder as SchoolItemViewHolder
         viewHolder.title.text = school.schoolName
         viewHolder.itemView.setOnClickListener {
-            Toast.makeText(
-                viewHolder.title.context,
-                school.schoolName,
-                Toast.LENGTH_SHORT
-            ).show()
+            onItemClickListener?.onItemClicked(it, school, position)
         }
     }
 }

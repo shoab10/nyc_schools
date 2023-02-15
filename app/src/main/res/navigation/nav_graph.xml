@@ -13,7 +13,7 @@
 
         <action
             android:id="@+id/action_SchoolListFragment_to_SatDetailsFragment"
-            app:destination="@id/SchoolListFragment" />
+            app:destination="@id/SatDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/SatDetailsFragment"
@@ -23,6 +23,7 @@
 
         <action
             android:id="@+id/action_SatDetailsFragment_to_SchoolListFragment"
-            app:destination="@id/SchoolListFragment" />
+            app:popUpTo="@id/nav_graph"
+            app:destination="@id/nav_graph" />
     </fragment>
 </navigation>
