@@ -18,7 +18,7 @@ import com.shoab.nycschools.R
 import com.shoab.nycschools.model.NycSchool
 import com.shoab.nycschools.ui.recyclerview.SchoolListAdapter
 import com.shoab.nycschools.ui.recyclerview.SchoolListAdapter.OnItemClickListener
-import com.shoab.nycschools.viewmodel.NycSchoolsViewModel
+import com.shoab.nycschools.viewmodel.NycSchoolsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class SchoolListFragment : Fragment() {
-    private val viewModel : NycSchoolsViewModel by viewModels()
+    private val viewModel : NycSchoolsListViewModel by viewModels()
     private val adapter = SchoolListAdapter()
 
     override fun onCreateView(
@@ -65,8 +65,8 @@ class SchoolListFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     when (uiState) {
-                        is NycSchoolsViewModel.SchoolListUiState.Success -> adapter.setItems(uiState.schools)
-                        is NycSchoolsViewModel.SchoolListUiState.Error -> {}
+                        is NycSchoolsListViewModel.SchoolListUiState.Success -> adapter.setItems(uiState.schools)
+                        is NycSchoolsListViewModel.SchoolListUiState.Error -> {}
                     }
                 }
             }

@@ -11,5 +11,5 @@ interface NycSchoolApiServiceInterface {
     suspend fun getSchools(): List<NycSchool>
 
     @GET("f9bf-2cp4")
-    suspend fun getSatDataForSchool(@Query("dbn") dbn: String): SatData
+    suspend fun getSatDataForSchool(@Query("dbn") dbn: String): List<SatData>
 }

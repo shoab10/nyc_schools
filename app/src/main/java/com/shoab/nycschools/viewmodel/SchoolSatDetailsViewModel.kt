@@ -2,7 +2,7 @@ package com.shoab.nycschools.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shoab.nycschools.model.NycSchool
+import com.shoab.nycschools.model.SatData
 import com.shoab.nycschools.repository.NycSchoolsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,25 +11,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NycSchoolsViewModel @Inject constructor(
+class SchoolSatDetailsViewModel @Inject constructor(
     private val repository: NycSchoolsRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(SchoolListUiState.Success(emptyList()))
+    private val _uiState = MutableStateFlow(SatDetailsUiState())
     // The UI collects from this StateFlow to get its state updates
-    val uiState: StateFlow<SchoolListUiState> = _uiState
+    val uiState: StateFlow<SatDetailsUiState> = _uiState
 
-    init {
+    fun fetchSchoolSatDetails(idn : String) {
         viewModelScope.launch {
-            repository.getNycSchools()
-                .collect { schools ->
-                    _uiState.value = SchoolListUiState.Success(schools)
+            repository.getStatData(idn)
+                .collect { satData ->
+                    _uiState.value = SatDetailsUiState(satData)
                 }
         }
     }
 
     // Represents different states for the school list screen
-    sealed class SchoolListUiState {
-        data class Success(val schools: List<NycSchool>): SchoolListUiState()
-        data class Error(val exception: Throwable): SchoolListUiState()
-    }
+    data class SatDetailsUiState(
+        val satData : SatData? = null
+    )
 }
