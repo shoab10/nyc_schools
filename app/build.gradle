@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    // Hilt
     id 'com.google.dagger.hilt.android'
 }
 
@@ -47,6 +48,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Start from here //
+    // KTX
+    def activity_version = "1.6.1"
+    implementation "androidx.activity:activity-ktx:$activity_version"
 
     // Retrofit okhttp networking Gson
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
