@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NYC Schools</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="school_list_fragment_label">NYC Schools</string>
+    <string name="sat_details_fragment_label">School Sat Details</string>
+
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

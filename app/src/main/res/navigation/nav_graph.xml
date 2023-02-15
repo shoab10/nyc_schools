@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SchoolListFragment">
+
+    <fragment
+        android:id="@+id/SchoolListFragment"
+        android:name="com.shoab.nycschools.ui.SchoolListFragment"
+        android:label="@string/school_list_fragment_label"
+        tools:layout="@layout/fragment_school_list">
+
+        <action
+            android:id="@+id/action_SchoolListFragment_to_SatDetailsFragment"
+            app:destination="@id/SchoolListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SatDetailsFragment"
+        android:name="com.shoab.nycschools.ui.SatDetailsFragment"
+        android:label="@string/sat_details_fragment_label"
+        tools:layout="@layout/fragment_sat_details">
+
+        <action
+            android:id="@+id/action_SatDetailsFragment_to_SchoolListFragment"
+            app:destination="@id/SchoolListFragment" />
+    </fragment>
+</navigation>
