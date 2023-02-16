@@ -18,6 +18,13 @@ class NycSchoolsApiService @Inject constructor(retrofit: Retrofit) {
     }
 
     suspend fun getSatData(idn: String): Flow<SatData> {
-        return flow { emit(apiServiceInterface.getSatDataForSchool(idn).first()) }
+        return flow {
+            val satData = apiServiceInterface.getSatDataForSchool(idn).firstOrNull()
+            if (satData != null) {
+                emit(satData)
+            } else {
+                throw Exception("No data for school")
+            }
+        }
     }
 }

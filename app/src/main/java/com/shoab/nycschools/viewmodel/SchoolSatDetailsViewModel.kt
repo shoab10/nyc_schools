@@ -20,15 +20,21 @@ class SchoolSatDetailsViewModel @Inject constructor(
 
     fun fetchSchoolSatDetails(idn : String) {
         viewModelScope.launch {
-            repository.getStatData(idn)
-                .collect { satData ->
-                    _uiState.value = SatDetailsUiState(satData)
-                }
+            try {
+                repository.getStatData(idn)
+                    .collect { satData ->
+                        _uiState.value = SatDetailsUiState(satData)
+                    }
+            } catch (e: Exception) {
+                _uiState.value = SatDetailsUiState(error = e.message!!)
+            }
+
         }
     }
 
     // Represents different states for the school list screen
     data class SatDetailsUiState(
-        val satData : SatData? = null
+        val satData : SatData? = null,
+        val error: String = ""
     )
 }

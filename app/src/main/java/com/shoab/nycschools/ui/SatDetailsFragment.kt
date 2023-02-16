@@ -43,6 +43,9 @@ class SatDetailsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
+                    if (uiState.error.isNotEmpty()) {
+                        textView.text = uiState.error
+                    }
                     uiState.satData?.let {
                         val text = "DBN : " + it.dbn + "\n" +
                                 "School name : " + it.schoolName + "\n" +

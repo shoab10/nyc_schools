@@ -5,17 +5,20 @@ import com.shoab.nycschools.model.SatData
 import com.shoab.nycschools.network.service.NycSchoolsApiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NycSchoolsRepository @Inject constructor(
+interface NycSchoolsRepository {
+    suspend fun getNycSchools(): Flow<List<NycSchool>>
+    suspend fun getStatData(idn: String): Flow<SatData>
+}
+
+class NycSchoolsRepositoryImpl @Inject constructor(
     private val nycSchoolsApiService: NycSchoolsApiService
-) {
-    suspend fun getNycSchools(): Flow<List<NycSchool>> {
+): NycSchoolsRepository  {
+    override suspend fun getNycSchools(): Flow<List<NycSchool>> {
         return nycSchoolsApiService.getSchools()
     }
 
-    suspend fun getStatData(idn: String): Flow<SatData> {
+    override suspend fun getStatData(idn: String): Flow<SatData> {
         return nycSchoolsApiService.getSatData(idn)
     }
 }
